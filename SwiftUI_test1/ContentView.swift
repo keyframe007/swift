@@ -9,16 +9,23 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ZStack{
+            LinearGradient(gradient: Gradient(colors: [Color.blue, Color.white]), startPoint: /*@START_MENU_TOKEN@*/.topLeading/*@END_MENU_TOKEN@*/, endPoint: /*@START_MENU_TOKEN@*/.bottomTrailing/*@END_MENU_TOKEN@*/)
+            VStack {
+                Text("Weather")
+                    .font(.system(size: 40,
+                                  weight: .bold,
+                                  design: .rounded))
+                    .foregroundStyle(.white)
+                Spacer()
+                
+                
+                
+            }
+            .padding()
         }
-        .padding()
     }
 }
-
 #Preview {
     ContentView()
 }
