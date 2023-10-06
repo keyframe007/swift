@@ -17,6 +17,10 @@ struct ContentView: View {
                                   weight: .bold,
                                   design: .rounded))
                     .foregroundStyle(.white)
+                Text("Some text")
+                    .font(.system(size: 30,
+                                  weight: .semibold))
+                    .foregroundStyle(.blue)
                 Spacer()
                 
                 
