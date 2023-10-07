@@ -10,41 +10,20 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         ZStack{
-            LinearGradient(gradient: Gradient(colors: [Color.blue, Color("lightBlue")]), startPoint: /*@START_MENU_TOKEN@*/.topLeading/*@END_MENU_TOKEN@*/, endPoint: /*@START_MENU_TOKEN@*/.bottomTrailing/*@END_MENU_TOKEN@*/)
-                .ignoresSafeArea()
+            LinearGradientBackgroundView(topColor: .blue, bottomColor: .lightBlue)
             
-            //TOP Element
+            
             VStack {
                 
-                Text("Montreal, QC")
-                    .font(.system(size: 30,
-                                  weight: .bold,
-                                  design: .rounded))
-                    .foregroundColor(Color.white)
-                    .multilineTextAlignment(.center)
-                    .padding(.top, 12.0)
-                    .foregroundStyle(.white)
-                Image(systemName: "cloud.sun.fill")
-                    .renderingMode(.original)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .padding(.top, -40.0)
-                    .frame(width: 180.0,height: 180.0)
-                
-                Text("24°")
-                    .font(.system(size: 40,
-                                  weight: .bold,
-                                  design: .rounded))
-                    .foregroundColor(.white)
-                    .padding(.top, -50.0)
+                CityNameView(cityName: "Montreal, QC", fontSize: 30, foregroundColor: .white)
+                TodaysWeatherImage(imageName: "cloud.sun.fill", width: 180, height: 180)
+                TodayTemperatureView(temperature: 32, textSize: 40, foregroundColor: .white)
                 
                 Spacer()
                 
-             //END top element
             }
             .padding(.top, 100.0)
             
-            //MID element
             HStack (spacing:15){
                 
                 WeatherDayView(dayOfWeek: "MON", imageName: "cloud.sun.fill", temperature: 13)
@@ -53,7 +32,6 @@ struct ContentView: View {
                 WeatherDayView(dayOfWeek: "THU", imageName: "cloud.sun.fill", temperature: 27)
                 WeatherDayView(dayOfWeek: "FRI", imageName: "cloud.sun.fill", temperature: 32)
                 
-            //END mid element
             }
             
             Button {
@@ -66,7 +44,8 @@ struct ContentView: View {
                                   design: .rounded))
                     .bold()
                     .foregroundStyle(.white)
-                    
+                    .cornerRadius(10)
+                
             }
             .padding(.top, 600.0)
             
@@ -77,9 +56,12 @@ struct ContentView: View {
     ContentView()
 }
             
-            
+
                 
                 
+
+
+
 
 struct WeatherDayView: View {
     
@@ -117,3 +99,66 @@ struct WeatherDayView: View {
         .padding(.top, 200.0)
     }
 }
+
+struct LinearGradientBackgroundView: View {
+    
+    var topColor: Color
+    var bottomColor: Color
+    
+    var body: some View {
+        LinearGradient(gradient: Gradient(colors: [topColor, bottomColor]), startPoint: /*@START_MENU_TOKEN@*/.topLeading/*@END_MENU_TOKEN@*/, endPoint: /*@START_MENU_TOKEN@*/.bottomTrailing/*@END_MENU_TOKEN@*/)
+            .ignoresSafeArea()
+    }
+}
+
+struct CityNameView: View {
+    
+    var cityName: String
+    var fontSize: CGFloat
+    var foregroundColor: Color
+    
+    var body: some View {
+        Text(cityName)
+            .font(.system(size: fontSize,
+                          weight: .bold,
+                          design: .rounded))
+            .foregroundColor(foregroundColor)
+            .multilineTextAlignment(.center)
+            .padding(.top, 12.0)
+            .foregroundStyle(.white)
+    }
+}
+
+struct TodaysWeatherImage: View {
+    
+    var imageName: String
+    var width: CGFloat
+    var height: CGFloat
+    
+    var body: some View {
+        Image(systemName: imageName)
+            .renderingMode(.original)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .padding(.top, -40.0)
+            .frame(width: width,height: height)
+    }
+}
+
+struct TodayTemperatureView: View {
+    
+    var temperature: Int
+    var textSize: CGFloat
+    var foregroundColor: Color
+    
+    var body: some View {
+        Text("\(temperature)°")
+            .font(.system(size: textSize,
+                          weight: .bold,
+                          design: .rounded))
+            .foregroundColor(foregroundColor)
+            .padding(.top, -50.0)
+    }
+}
+                
+                
