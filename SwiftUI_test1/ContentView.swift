@@ -8,15 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var isNight = false
+    
     var body: some View {
         ZStack{
-            LinearGradientBackgroundView(topColor: .blue, bottomColor: .lightBlue)
+            LinearGradientBackgroundView(topColor: isNight ? .black : .blue, bottomColor: isNight ? .gray : .lightBlue)
             
             
             VStack {
                 
                 CityNameView(cityName: "Montreal, QC", fontSize: 30, foregroundColor: .white)
-                TodaysWeatherImage(imageName: "cloud.sun.fill", width: 180, height: 180)
+                TodaysWeatherImage(imageName: isNight ? "cloud.fill" : "cloud.sun.fill", width: isNight ? 130 : 180, height: 180)
                 TodayTemperatureView(temperature: 32, textSize: 40, foregroundColor: .white)
                 
                 Spacer()
@@ -35,16 +38,17 @@ struct ContentView: View {
             }
             
             Button {
-                print("tap")
+                isNight.toggle()
             } label: {
-                Text("Change Day Time")
+                Text(isNight ? "Change to Day" : "Change to Night")
                     .frame(width: 280, height: 50)
-                    .background(Color.buttonBG)
+                    .background(isNight ? .gray : .buttonBG)
                     .font(.system(size: 30,
                                   design: .rounded))
                     .bold()
                     .foregroundStyle(.white)
                     .cornerRadius(10)
+                    
                 
             }
             .padding(.top, 600.0)
@@ -55,13 +59,9 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
-            
-
-                
-                
 
 
-
+// STRUCT SEPARATED VIEWS BELOW THIS LINE/////////////////////////////////
 
 struct WeatherDayView: View {
     
@@ -87,13 +87,6 @@ struct WeatherDayView: View {
                               weight: .bold,
                               design: .rounded))
                 .foregroundColor(.white)
-            
-            
-            
-            
-            
-            
-            
             
         }
         .padding(.top, 200.0)
@@ -160,5 +153,17 @@ struct TodayTemperatureView: View {
             .padding(.top, -50.0)
     }
 }
+
+                
+                
+
+            
+            
+            
+            
+            
+            
+
+
                 
                 
